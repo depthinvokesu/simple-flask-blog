@@ -28,5 +28,3 @@ class DevConfig(Config):
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_DATABASE_URI = environ.get('DEV_SQLALCHEMY_DATABASE_URI')
     FLASK_ENV = 'development'
-
-# app.config["SQLALCHEMY_DATABASE_URI"] = "mariadb+pymysql://root:1@localhost/blog?charset=utf8mb4"
