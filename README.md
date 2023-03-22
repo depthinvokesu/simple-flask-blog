@@ -1,5 +1,5 @@
 # simple-flask-blog
-This is an example of simple blog with following features:
+This is an example of simple blog written with Flask framework that has following features:
 - Log in/Log out
 - Registration
 - Submitting a post
