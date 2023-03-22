@@ -1,0 +1,23 @@
+{% extends 'layout.html.jinja2' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content_title %}
+    {% for message in get_flashed_messages(category_filter=["success"]) %}
+    <div class="alert alert-success p-2 mt-3" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    {% if not current_user.is_authenticated %}
+        <h2>Welcome to the blog</h2>
+    {% endif %}
+
+{% endblock %}
+
+{% block content %} 
+    {% if current_user.is_authenticated %}
+    <h2>We've missed you {{ current_user.name }}!</h2>
+    {% endif %}
+{% endblock %}
+

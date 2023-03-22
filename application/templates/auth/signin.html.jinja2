@@ -1,0 +1,51 @@
+{% extends 'layout.html.jinja2' %}
+
+{% block title %}
+Log in
+{% endblock title %}
+
+{% block content_title %}
+    {% for message in get_flashed_messages(category_filter=["unauthorized"]) %}
+    <div class="alert alert-warning p-2 mt-3" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    <h1>Please introduce yourself</h1>
+{% endblock content_title %}
+
+
+{% block content %}
+
+<form action="{{url_for('auth.signin')}}" method="post">
+
+    {{form.email.label(class="control-label")}}
+    {{form.email(class="form-control" + (" is-invalid" if form.email.errors else "") ) }}
+    {% if form.email.errors %}
+        {% for error in form.email.errors %}
+            <div class="invalid-feedback">{{error}}</div>
+        {% endfor %}
+    {% endif %}
+
+    {{form.password.label(class="control-label")}}
+    {{form.password(class="form-control" + (" is-invalid" if form.password.errors else "") ) }}
+    {% if form.password.errors %}
+        {% for error in form.password.errors %}
+            <div class="invalid-feedback">{{error}}</div>
+        {% endfor %}
+    {% endif %}
+
+    {% for message in get_flashed_messages(category_filter=["bad_creds"]) %}
+        <div class="alert alert-danger p-2 mt-3" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <div class="mb-3 mt-3">
+        {{form.submit(class="btn btn-primary")}}
+    </div>
+
+</form>
+
+
+{% endblock content %}

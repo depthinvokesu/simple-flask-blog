@@ -1,0 +1,64 @@
+<!doctype html>
+
+<head>
+<!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+
+
+<body>
+
+<title>
+    {% block title %}
+    {% endblock title %}
+</title>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light ">
+    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('home.index')}}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('auth.signin')}}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('auth.signup')}}">Registration</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('auth.signout')}}">Sign out</a>
+            </li>
+            {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('blog.blog')}}">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('blog.create')}}">Crete a post</a>
+                </li>
+            {% endif %}
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0 justify-content-between" action="{{url_for('blog.search')}}">
+            <div class="input-group">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</nav>
+
+<div class="container col-4">
+    <div class="row justify-content-center">
+        {% block content_title %} 
+        {% endblock content_title %}
+
+        {% block content %} 
+        {% endblock content %}
+    </div>
+</div>
+
+</body>

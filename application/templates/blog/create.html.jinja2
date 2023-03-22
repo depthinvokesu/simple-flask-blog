@@ -1,0 +1,48 @@
+{% extends 'layout.html.jinja2'%}
+
+{% block title %}
+Blog
+{% endblock title %}
+
+{% block content_title %}
+    <h2>The world is waiting for your post!</h2>
+{% endblock content_title %}
+
+{% block content %}
+
+    <form action="{{url_for('blog.create')}}" method="post">
+
+        {{form.title.label(class="control-label")}} {{form.title(class="form-control")}} 
+        {{form.body.label(class="control-label")}} {{form.body(class="form-control")}}
+        
+        <p>Tags:</p>
+        <div class="btn-toolbar mb-3" role="toolbar" aria-label="Tags toolbar">
+
+            <div class="btn-group me-2" role="group" aria-label="Group with existing tags">
+                {% for tag in tags %}
+                    <input type="checkbox" class="btn-check" id="btncheck{{loop.index}}" autocomplete="off" name="tag" value="{{tag}}">
+                    <label class="btn btn-outline-primary" for="btncheck{{loop.index}}">{{tag}}</label>
+                {% endfor %}
+            </div>
+
+            <div class="input-group">
+                {{form.tag(**{"class":"form-control", "placeholder":"Own tag", "aria-label":"Input tag group"})}} 
+                {# Python doesn't allow keyword parameters (form-control, placeholder) to contain hyphen '-' 
+                like in aria-label, so the only way to pass them is **{} way #}
+            </div>
+            
+        </div>
+
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-danger p-2 mt-3" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        
+    </form>
+
+{% endblock content %}

@@ -1,0 +1,60 @@
+{% extends 'layout.html.jinja2' %}
+
+{% block title %}
+Blog
+{% endblock title %}
+
+{% block content_title %}
+
+    {% for message in get_flashed_messages(category_filter=["success"]) %}
+        <div class="alert alert-success p-2 mt-3" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <h2>Here are the recent posts:</h2>
+{% endblock content_title %}
+
+{% block content %}
+<nav aria-label="Recent posts">
+
+    {# Show list of posts for current page #}
+    {%for post in pgntn%}
+        <p><a href="{{url_for('blog.view_post', slug=post.slug)}}">{{post.title}}</a></p>
+    {%endfor%}
+
+    <ul class="pagination">
+
+        {# Previos button #}
+        {% if not pgntn.has_prev %}
+            <li class="page-item disabled">
+                <span class="page-link" tabindex="-1">Previous</span>
+            </li>
+        {% else %}
+            <li class="page-item">
+                <a class="page-link" href="./?p={{pgntn.prev_num}}">Previous</a>
+            </li>
+        {% endif %}
+
+        {# Page numbers #}
+        {% for page in pgntn.iter_pages() %}
+            <li {% if page == pgntn.page %} class="page item active" {% endif %} class="page-item" >
+                <a class="page-link" href="./?p={{page}}&q={{search_query}}">{{ page }}</a>
+            </li>
+        {% endfor %}
+
+        {# Next button #}
+        {% if not pgntn.has_next %}
+        <li class="page-item disabled">
+            <span class="page-link" tabindex="-1">Next</span>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link" href="./?p={{pgntn.next_num}}">Next</a>
+        </li>
+        {% endif %}
+
+    </ul>
+</nav>
+
+{% endblock content %}

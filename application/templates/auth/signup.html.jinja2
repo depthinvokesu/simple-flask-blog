@@ -1,0 +1,49 @@
+{% extends 'layout.html.jinja2' %}
+
+{% block title %}
+Sign up
+{% endblock title %}
+
+{% block content_title %}
+    <h1>Registration</h1>
+{% endblock content_title %}
+
+
+{% block content %}
+
+    <form action="{{url_for('auth.signup')}}" method="post">
+
+        {{form.email.label(class="control-label")}}
+        {{form.email(class="form-control" + (" is-invalid" if form.email.errors else "") ) }}
+        {% if form.email.errors %}
+            {% for error in form.email.errors %}
+                <div class="invalid-feedback">{{error}}</div>
+            {% endfor %}
+        {% endif %}
+
+        {{form.name.label(class="control-label")}}
+        {{form.name(class="form-control" + (" is-invalid" if form.name.errors else "") ) }}
+        {% if form.name.errors %}
+            {% for error in form.name.errors %}
+                <div class="invalid-feedback">{{error}}</div>
+            {% endfor %}
+        {% endif %}
+
+        {{form.password.label(class="control-label")}} 
+        {{form.password(class="form-control" + (" is-invalid" if form.password.errors else "") ) }}
+        {% if form.password.errors %}
+            {% for error in form.password.errors %}
+                <div class="invalid-feedback">{{error}}</div>
+            {% endfor %}
+        {% endif %}
+
+        {{form.password_confirm.label(class="control-label")}}
+        {{form.password_confirm(class="form-control" + (" is-invalid" if form.password.errors else "") ) }}
+
+        <div class="mb-3 mt-3">
+            {{form.submit(class="btn btn-primary")}}
+        </div>
+
+    </form>
+
+{% endblock content %}
