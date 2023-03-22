@@ -13,3 +13,9 @@ To lauch it run the following commands:
 pip install requirements.txt
 flask --app wsgi.py run
 ```
+There should be .env file in the root directory with following configuration parameters:
+```
+SECRET_KEY
+DEV_SQLALCHEMY_DATABASE_URI
+PROD_SQLALCHEMY_DATABASE_URI
+```
